@@ -1,35 +1,35 @@
-# Desearch — Social DMs Sync (X / Twitter first)
+# Desearch — LinkedIn DMs Sync
 
-This repository is for building a **community-driven DM sync service**, starting with **X (Twitter) Direct Messages**.
+This repository is for building a **community-driven LinkedIn Direct Messages sync service**.
 
-The goal: given a user’s X account session (cookies) and a proxy, the service should be able to:
+The goal: given a user’s **LinkedIn** session (typically browser cookies) and (optionally) a proxy, the service should be able to:
 
 1. **Sync DM history** (fetch and store conversation history)
 2. **Send DMs** to specific users
 
-We’re intentionally keeping the first version minimal, so contributors can plug in better scraping, official APIs (if available), storage backends, and deployment options.
+We’re intentionally keeping the first version minimal, so contributors can plug in better scraping/playwright strategies, storage backends, and deployment options.
 
 ## What we want to build (overview)
 
 ### Core capabilities
 
 #### 1) Sync DM history
-- Accept an authenticated X session (typically **browser cookies**; optionally username/password if someone implements it safely)
-- Use a **per-account proxy** (residential/mobile proxies are often required)
-- Discover DM conversations
+- Accept an authenticated **LinkedIn** session (typically **browser cookies**; optionally username/password if someone implements it safely)
+- Optional **per-account proxy** (may be required depending on usage/location)
+- Discover DM conversations/threads
 - Fetch message history per conversation
 - Persist messages in a normalized format (DB)
 - Incremental sync (only fetch new messages after last checkpoint)
 
 #### 2) Send DMs
-- Send a DM to a specific recipient
+- Send a DM to a specific recipient/profile
 - Support idempotency / retries
 - Record outbound message status
 
 ### Constraints / reality
-- X is heavily protected by anti-bot systems.
+- LinkedIn has strong anti-automation protections and frequent UI changes.
 - Cookie-based sessions can expire and may trigger security challenges.
-- Proxies, rate limiting, and careful request patterns are mandatory.
+- Rate limiting, careful request patterns, and good operational hygiene are mandatory.
 
 This repo is **NOT** about bypassing security challenges or breaking laws/terms. It’s about building a robust, opt-in syncing tool for accounts you own or have explicit permission to access.
 
@@ -53,13 +53,13 @@ This repo is **NOT** about bypassing security challenges or breaking laws/terms.
 
 ### Interfaces
 - **Provider abstraction** (recommended):
-  - `providers/x/` implements X-specific logic
-  - Later we can add `providers/linkedin/`, `providers/telegram/`, etc.
+  - `providers/linkedin/` implements LinkedIn-specific logic
+  - Later we can add other providers as needed.
 
 ## MVP scope (what we want first)
 
 1. A minimal Python service skeleton
-2. A provider interface with placeholder X implementation
+2. A provider interface with placeholder LinkedIn implementation
 3. A simple storage layer (SQLite first)
 4. CLI commands:
    - `sync` (fetch conversations + messages)
@@ -79,7 +79,7 @@ Contributors can then replace the provider implementation with:
 ├─ libs/
 │  ├─ core/                # shared models, storage, config
 │  └─ providers/
-│     └─ x/                # X/Twitter provider (placeholder)
+│     └─ linkedin/         # LinkedIn provider (placeholder)
 ├─ scripts/
 ├─ tests/
 └─ docs/
@@ -121,8 +121,8 @@ When implementing account auth handling:
 ## Roadmap
 
 - [ ] MVP skeleton: FastAPI + SQLite + provider interface
-- [ ] X provider: conversation discovery + incremental sync (TBD)
-- [ ] X provider: send DM (TBD)
+- [ ] LinkedIn provider: conversation discovery + incremental sync (TBD)
+- [ ] LinkedIn provider: send DM (TBD)
 - [ ] Proxy + per-account rate limiting
 - [ ] Dockerfile + deployment guide
 

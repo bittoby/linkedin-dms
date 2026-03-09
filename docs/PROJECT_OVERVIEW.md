@@ -1,7 +1,7 @@
-# Project Overview — Social DMs Sync (X / Twitter)
+# Project Overview — LinkedIn DMs Sync
 
 ## Summary
-We’re building an **opt-in DM synchronization and sending service** for social platforms, starting with **X (Twitter)**.
+We’re building an **opt-in LinkedIn DM synchronization and sending service**.
 
 This project is intended to be **open-source and community-built**:
 - We will provide the skeleton: API, storage, job runner, abstractions
@@ -13,10 +13,10 @@ Teams running outreach/support communities often need:
 - message analytics and routing
 - the ability to send DMs programmatically from authorized accounts
 
-For X, this is difficult due to:
+For LinkedIn, this is difficult due to:
 - session + anti-bot constraints
 - rate limits
-- frequent UI/API changes
+- frequent UI changes
 
 ## Core requirements
 
@@ -55,7 +55,7 @@ We need:
 - provider abstraction + dummy provider
 - CLI to run sync/send jobs
 
-### Phase 2 — X provider implementation
+### Phase 2 — LinkedIn provider implementation
 - Decide approach (Playwright vs HTTP)
 - Implement conversation/message fetch
 - Implement sending
